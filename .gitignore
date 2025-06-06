@@ -81,8 +81,11 @@ yarn-error.log*
 
 ## local env files
 .env*.local
-.env*
 .env.ai
+.env
+
+## data csv
+docker-pg-winwin/db/data/*.csv
 
 ## vercel
 .vercel

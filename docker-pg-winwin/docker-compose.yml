@@ -1,0 +1,25 @@
+services:
+  postgres:
+    image: postgres:16
+    container_name: local_pg_winwin
+    restart: unless-stopped
+
+    # ====== 环境变量 ====== #
+    env_file:
+      - .env           # 建议把密码放这里；没有就直接写 environment 块
+    environment:
+      POSTGRES_DB: winwin           # 初始库
+      POSTGRES_USER: sunmu
+      POSTGRES_PASSWORD: ${PG_PASS}
+
+    ports:
+      - "5432:5432"    # 本机 5432 → 容器 5432
+
+    # ====== 挂载卷 ====== #
+    volumes:
+      - pgdata:/var/lib/postgresql/data        # 持久化数据库文件
+      - ./db/sql:/docker-entrypoint-initdb.d   # 初始化脚本
+      - ./db/data:/data                        # CSV 文件让 COPY 能找到
+
+volumes:
+  pgdata:                 # Docker managed volume，干净、可靠
