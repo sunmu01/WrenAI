@@ -64,7 +64,7 @@
    注意：
    - 加权铺市率，支持集团、品牌和商品粒度的查询。
    - 在售门店的类目销售额，是 category_branch_amount 字段
-   - 所有门店中的类目总销售额，是由指定粒度(集团、品牌、商品)的monthly后缀数据表中符合条件的记录的sales_key(group_sales_key, brand_sales_key, product_sales_key)关联到的 category_sales_key 去 category_sales_monthly 表中查询到的 amount 数值。
+   - 所有门店中的类目总销售额，直接去 category_sales_monthly 表中查询，方式是：SELECT SUM(amount) FROM category_sales_monthly WHERE province_name = ALL and channel = ALL
 
 - 单点卖力 = 销售额 / 加权铺市率
    注意：
